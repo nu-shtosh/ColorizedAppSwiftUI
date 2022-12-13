@@ -21,6 +21,6 @@ struct TextView: View {
 
 struct TextView_Previews: PreviewProvider {
     static var previews: some View {
-        TextView(value: 20.1111).background(Color.blue)
+        TextView(value: 1.0).background(Color.blue)
     }
 }

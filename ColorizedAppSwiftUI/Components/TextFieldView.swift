@@ -10,7 +10,9 @@ import SwiftUI
 struct TextFieldView: View {
 
     @Binding var value: Double
-    var text: String = ""
+    @Binding var text: String
+
+    @State private var isShowAlert = false
 
     var body: some View {
         TextField(text,
@@ -20,12 +22,28 @@ struct TextFieldView: View {
         .frame(width: 100)
         .multilineTextAlignment(.trailing)
         .textFieldStyle(.roundedBorder)
-        .keyboardType(.numberPad)
+        .keyboardType(.decimalPad)
+        .alert("Ops", isPresented: $isShowAlert, actions: {} ) {
+            Text("Numbers must be in range from 0 to 255")
+        }
+    }
+}
+
+// с алертом я не справился, точнее он у меня вызывался просто при нажатии на текстфилд
+extension TextFieldView {
+    private func checkValue() {
+        if let checkedValue = Int(text), (0...255).contains(checkedValue) {
+            self.value = Double(value)
+            return
+        }
+        isShowAlert.toggle()
+        value = 0
+        text = "0"
     }
 }
 
 struct TextFieldView_Previews: PreviewProvider {
     static var previews: some View {
-        TextFieldView(value: .constant(324.463), text: "500").background(Color.blue)
+        TextFieldView(value: .constant(34.463), text: .constant("12")).background(Color.blue)
     }
 }
