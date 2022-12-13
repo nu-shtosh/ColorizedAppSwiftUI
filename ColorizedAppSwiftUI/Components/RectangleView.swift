@@ -23,12 +23,12 @@ struct RectangleView: View {
                                                                lineWidth: 5))
             .frame(width: 350, height: 200)
             .cornerRadius(30)
-            .padding(.top, 16)
     }
 }
 
 struct RectangleView_Previews: PreviewProvider {
     static var previews: some View {
-        RectangleView(redColor: 45, greenColor: 55, blueColor: 66)
+        RectangleView(redColor: 100, greenColor: 200, blueColor: 0.5).background(Color.gray)
     }
 }
+

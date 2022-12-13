@@ -9,20 +9,23 @@ import SwiftUI
 
 struct TextFieldView: View {
 
-    @Binding var text: String
     @Binding var value: Double
+    var text: String = ""
 
     var body: some View {
-        TextField("", text: $text)
-            .frame(width: 70)
-            .multilineTextAlignment(.trailing)
-            .textFieldStyle(.roundedBorder)
-            .keyboardType(.decimalPad)
+        TextField(text,
+                  value: Binding(get: { lround(value) },
+                                 set: { value = Double($0)}),
+                  format: .number)
+        .frame(width: 100)
+        .multilineTextAlignment(.trailing)
+        .textFieldStyle(.roundedBorder)
+        .keyboardType(.numberPad)
     }
 }
 
 struct TextFieldView_Previews: PreviewProvider {
     static var previews: some View {
-        TextFieldView(text: .constant("100"), value: .constant(100))
+        TextFieldView(value: .constant(324.463), text: "500").background(Color.blue)
     }
 }

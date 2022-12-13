@@ -11,26 +11,22 @@ struct SliderView: View {
 
     @Binding var value: Double
     @State private var text = ""
+    
     let color: Color
 
     var body: some View {
         HStack {
             TextView(value: value)
             Slider(value: $value, in: 0...255, step: 1)
-                .tint(color)
-                .onChange(of: value) { newValue in
-                    text = String(lround(value))
-                }
-            TextFieldView(text: $text, value: $value)
-                .onAppear {
-                    text = String(lround(value))
-                }
+                .accentColor(color)
+                .animation(.easeInOut, value: value)
+            TextFieldView(value: $value, text: text)
         }
     }
 }
 
 struct SliderView_Previews: PreviewProvider {
     static var previews: some View {
-        SliderView(value: .constant(0.0), color: .black)
+        SliderView(value: .constant(24.22), color: .white).background(Color.blue)
     }
 }
